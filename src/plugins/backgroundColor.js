@@ -2,7 +2,7 @@ import flattenColorPalette from '../util/flattenColorPalette'
 import withAlphaVariable from '../util/withAlphaVariable'
 
 export default function () {
-  return function ({ matchUtilities, theme, variants, corePlugins }) {
+  return function ({ config, matchUtilities, theme, variants, corePlugins }) {
     matchUtilities(
       {
         bg: (value) => {
@@ -12,11 +12,22 @@ export default function () {
             }
           }
 
-          return withAlphaVariable({
-            color: value,
-            property: 'background-color',
-            variable: '--tw-bg-opacity',
-          })
+          return {
+            '&': {
+              ...withAlphaVariable({
+                color: value,
+                property: 'background-color',
+                variable: '--tw-bg-opacity',
+              }),
+            },
+            ...(config('mode') === 'jit'
+              ? {
+                  '& *': {
+                    '--tw-ring-offset-color': value,
+                  },
+                }
+              : {}),
+          }
         },
       },
       {
