@@ -57,6 +57,9 @@
 .h-\[var\(--height\)\] {
   height: var(--height);
 }
+.h-\[length\:var\(--height-2\)\] {
+  height: var(--height-2);
+}
 .max-h-\[3\.23rem\] {
   max-height: 3.23rem;
 }

@@ -269,7 +269,7 @@ function buildPluginApi(tailwindConfig, context, { variantList, variantMap, offs
           type = [].concat(type)
           let [value, coercedType] = coerceValue(type, modifier, options.values, tailwindConfig)
 
-          if (!type.includes(coercedType) || value === undefined) {
+          if ((!type.includes(coercedType) && !type.includes('any')) || value === undefined) {
             return []
           }
 
