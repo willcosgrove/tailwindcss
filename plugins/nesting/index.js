@@ -1,4 +1,4 @@
-let nesting = require('./plugin')
+import nesting from './plugin'
 
 module.exports = (opts) => {
   return {

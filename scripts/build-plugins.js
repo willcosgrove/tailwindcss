@@ -1,5 +1,7 @@
 let fs = require('fs')
 let path = require('path')
+let babel = require('@babel/core')
+let { babel: babelConfig } = require('../package.json')
 
 let plugins = fs.readdirSync(fromRootPath('plugins'))
 
@@ -31,7 +33,15 @@ function fromRootPath(...paths) {
 
 function copy(fromPath, toPath) {
   fs.mkdirSync(path.dirname(toPath), { recursive: true }) // Ensure folder exists
-  fs.copyFileSync(fromPath, toPath)
+  if (fromPath.endsWith('.js')) {
+    fs.writeFileSync(
+      toPath,
+      babel.transformSync(fs.readFileSync(fromPath, 'utf8'), babelConfig).code,
+      'utf8'
+    )
+  } else {
+    fs.copyFileSync(fromPath, toPath)
+  }
 }
 
 function copyFolder(fromPath, toPath, shouldCopy = () => true) {
