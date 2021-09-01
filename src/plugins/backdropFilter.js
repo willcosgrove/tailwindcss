@@ -28,9 +28,13 @@ export default function () {
       {
         '.backdrop-filter': {
           '@defaults backdrop-filter': {},
+          '-webkit-backdrop-filter': 'var(--tw-backdrop-filter)',
           'backdrop-filter': 'var(--tw-backdrop-filter)',
         },
-        '.backdrop-filter-none': { 'backdrop-filter': 'none' },
+        '.backdrop-filter-none': {
+          '-webkit-backdrop-filter': 'none',
+          'backdrop-filter': 'none',
+        },
       },
       variants('backdropFilter')
     )

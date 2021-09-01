@@ -6,6 +6,7 @@ export default function () {
           return {
             '--tw-backdrop-saturate': `saturate(${value})`,
             '@defaults backdrop-filter': {},
+            '-webkit-backdrop-filter': 'var(--tw-backdrop-filter)',
             'backdrop-filter': 'var(--tw-backdrop-filter)',
           }
         },
