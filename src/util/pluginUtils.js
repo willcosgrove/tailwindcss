@@ -294,10 +294,11 @@ function splitAtFirst(input, delim) {
 
 export function coerceValue(types, modifier, options, tailwindConfig) {
   if (isArbitraryValue(modifier)) {
-    let [explicitType, value] = splitAtFirst(modifier.slice(1, -1), ':')
+    let arbitraryValue = modifier.slice(1, -1)
+    let [explicitType, value] = splitAtFirst(arbitraryValue, ':')
 
     if (explicitType !== undefined && !supportedTypes.includes(explicitType)) {
-      return []
+      value = arbitraryValue
     }
 
     if (value.length > 0 && supportedTypes.includes(explicitType)) {

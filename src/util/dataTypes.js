@@ -8,6 +8,12 @@ let UNDERSCORE = /_(?![^(]*\))/g // Underscore separator that is not located bet
 // This is not a data type, but rather a function that can normalize the
 // correct values.
 export function normalize(value) {
+  // TODO: Somehow keep regular underscores in URLs...
+  // Need to support bg-[url('poop.jpg')_url('potato.png')] also, so still need some _ to space conversion happening
+
+  // Keep raw strings if it starts with `url(`
+  if (value.startsWith('url(')) return value
+
   // Convert `_` to ` `, except for escaped underscores `\_`
   value = value
     .replace(
@@ -19,9 +25,6 @@ export function normalize(value) {
 
   // Remove leftover whitespace
   value = value.trim()
-
-  // Keep raw strings if it starts with `url(`
-  if (value.startsWith('url(')) return value
 
   // Add spaces around operators inside calc() that do not follow an operator
   // or '('.

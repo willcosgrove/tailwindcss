@@ -615,6 +615,9 @@
 .bg-\[url\(\'\/path-to-image\.png\'\)\] {
   background-image: url('/path-to-image.png');
 }
+.bg-\[url\(\'https\:\/\/www\.spacejam\.com\/1996\/img\/bg_stars\.gif\'\)\] {
+  background-image: url('https://www.spacejam.com/1996/img/bg_stars.gif');
+}
 .bg-\[url\:var\(--url\)\] {
   background-image: var(--url);
 }

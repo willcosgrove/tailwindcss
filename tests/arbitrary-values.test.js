@@ -209,3 +209,35 @@ it('should warn and not generate if arbitrary values are ambigu', () => {
     return expect(result.css).toMatchFormattedCss(css``)
   })
 })
+
+it('should support colons in URLs', () => {
+  let config = {
+    content: [
+      { raw: html`<div class="bg-[url('https://www.spacejam.com/1996/img/bg_stars.gif')]"></div>` },
+    ],
+  }
+
+  return run('@tailwind utilities', config).then((result) => {
+    return expect(result.css).toMatchFormattedCss(css`
+      .bg-\\[url\\(\\'https\\:\\/\\/www\\.spacejam\\.com\\/1996\\/img\\/bg_stars\\.gif\\'\\)\\] {
+        background-image: url('https://www.spacejam.com/1996/img/bg_stars.gif');
+      }
+    `)
+  })
+})
+
+it('should support unescaped underscores in URLs', () => {
+  let config = {
+    content: [
+      { raw: html`<div class="bg-[url('brown_potato.jpg'),_url('red_tomato.png')]"></div>` },
+    ],
+  }
+
+  return run('@tailwind utilities', config).then((result) => {
+    return expect(result.css).toMatchFormattedCss(css`
+      .bg-\\[url\\(\\'brown_potato\\.jpg\\'\\)\\,_url\\(\\'red_tomato\\.png\\'\\)\\] {
+        background-image: url('brown_potato.jpg'), url('red_tomato.png');
+      }
+    `)
+  })
+})
