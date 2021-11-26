@@ -13,6 +13,14 @@ it('should generate every possible class, without variants', () => {
   // Verify we handle the DEFAULT case correctly
   expect(context.getClassList()).toContain('border')
 
+  // Verify we handle static utilities
+  expect(context.getClassList()).toContain('text-ellipsis')
+
+  // Verify we don't include deprecated classes
+  expect(context.getClassList()).not.toContain('flex-grow')
+  expect(context.getClassList()).not.toContain('flex-shrink')
+  expect(context.getClassList()).not.toContain('overflow-ellipsis')
+
   // Verify we handle negative values correctly
   expect(context.getClassList()).toContain('-inset-1/4')
   expect(context.getClassList()).toContain('-m-0')

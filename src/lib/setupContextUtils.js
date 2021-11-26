@@ -245,7 +245,7 @@ function buildPluginApi(tailwindConfig, context, { variantList, variantMap, offs
         let prefixedIdentifier = prefixIdentifier(identifier, options)
         let offset = offsets.components++
 
-        classList.add(prefixedIdentifier)
+        classList.add([prefixedIdentifier, options])
 
         if (!context.candidateRuleMap.has(prefixedIdentifier)) {
           context.candidateRuleMap.set(prefixedIdentifier, [])
@@ -268,7 +268,7 @@ function buildPluginApi(tailwindConfig, context, { variantList, variantMap, offs
         let prefixedIdentifier = prefixIdentifier(identifier, options)
         let offset = offsets.utilities++
 
-        classList.add(prefixedIdentifier)
+        classList.add([prefixedIdentifier, options])
 
         if (!context.candidateRuleMap.has(prefixedIdentifier)) {
           context.candidateRuleMap.set(prefixedIdentifier, [])
@@ -283,6 +283,7 @@ function buildPluginApi(tailwindConfig, context, { variantList, variantMap, offs
       let defaultOptions = {
         respectPrefix: true,
         respectImportant: true,
+        values: {},
       }
 
       options = { ...defaultOptions, ...options }
@@ -335,6 +336,7 @@ function buildPluginApi(tailwindConfig, context, { variantList, variantMap, offs
       let defaultOptions = {
         respectPrefix: true,
         respectImportant: false,
+        values: {},
       }
 
       options = { ...defaultOptions, ...options }
@@ -672,11 +674,14 @@ function registerPlugins(plugins, context) {
     let output = []
 
     for (let util of classList) {
-      if (Array.isArray(util)) {
-        let [utilName, options] = util
+      let [utilName, options] = util
+
+      if (options.deprecated) continue
+
+      if (options.values) {
         let negativeClasses = []
 
-        for (let [key, value] of Object.entries(options?.values ?? {})) {
+        for (let [key, value] of Object.entries(options.values)) {
           output.push(formatClass(utilName, key))
           if (options?.supportsNegativeValues && negateValue(value)) {
             negativeClasses.push(formatClass(utilName, `-${key}`))
@@ -685,7 +690,7 @@ function registerPlugins(plugins, context) {
 
         output.push(...negativeClasses)
       } else {
-        output.push(util)
+        output.push(utilName)
       }
     }
 

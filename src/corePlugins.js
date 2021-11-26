@@ -437,11 +437,11 @@ export let corePlugins = {
 
   flex: createUtilityPlugin('flex'),
   flexShrink: createUtilityPlugin('flexShrink', [
-    ['flex-shrink', ['flex-shrink']], // Deprecated
+    [['flex-shrink', ['flex-shrink']], { deprecated: true }],
     ['shrink', ['flex-shrink']],
   ]),
   flexGrow: createUtilityPlugin('flexGrow', [
-    ['flex-grow', ['flex-grow']], // Deprecated
+    [['flex-grow', ['flex-grow']], { deprecated: true }],
     ['grow', ['flex-grow']],
   ]),
   flexBasis: createUtilityPlugin('flexBasis', [['basis', ['flex-basis']]]),
@@ -1109,10 +1109,10 @@ export let corePlugins = {
   textOverflow: ({ addUtilities }) => {
     addUtilities({
       '.truncate': { overflow: 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' },
-      '.overflow-ellipsis': { 'text-overflow': 'ellipsis' }, // Deprecated
       '.text-ellipsis': { 'text-overflow': 'ellipsis' },
       '.text-clip': { 'text-overflow': 'clip' },
     })
+    addUtilities({ '.overflow-ellipsis': { 'text-overflow': 'ellipsis' } }, { deprecated: true })
   },
 
   whitespace: ({ addUtilities }) => {
