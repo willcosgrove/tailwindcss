@@ -18,6 +18,7 @@ let quotes = new Set(['"', "'", '`'])
 export default function isValidArbitraryValue(value) {
   let stack = []
   let inQuotes = false
+  let escapeCount = 0
 
   for (let i = 0; i < value.length; i++) {
     let char = value[i]
@@ -32,7 +33,15 @@ export default function isValidArbitraryValue(value) {
     }
 
     if (inQuotes) continue
+    if (value[i] === '\\') escapeCount++
     if (value[i - 1] === '\\') continue // Escaped
+    if (escapeCount > 1) {
+      escapeCount = 0
+
+      // Multiple consecutive escape characters will result in an invalid css value
+      // For example the literal class "w-[this-is\\]w-\\[weird-but-valid]" produces invalid css
+      return false
+    }
 
     if (matchingBrackets.has(char)) {
       stack.push(char)
@@ -55,6 +64,8 @@ export default function isValidArbitraryValue(value) {
   if (stack.length > 0) {
     return false
   }
+
+  console.log(`Yep Valid: ${value}`, { escapeCount })
 
   // All good, totally balanced!
   return true

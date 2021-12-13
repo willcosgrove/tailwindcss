@@ -293,3 +293,24 @@ it('should support unescaped underscores in URLs', () => {
     `)
   })
 })
+
+it.only("invalid escapes in sources don't break generated css", () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div class="w-[this-is]w-[weird-but-valid]"></div>
+          <div class="w-[this-is\]w-\[weird-but-valid]"></div>
+          <div class="w-[this-is\\]w-\\[weird-but-valid]"></div>
+          <div class="w-[this-is\\\]w-\\\[weird-but-valid]"></div>
+        `
+      },
+    ],
+  }
+
+  return run('@tailwind utilities', config).then((result) => {
+    return expect(result.css).toMatchFormattedCss(`
+
+    `)
+  })
+})
