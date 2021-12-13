@@ -13,11 +13,13 @@ export default function collapseDuplicateDeclarations() {
           return
         }
 
-        if (seen.has(decl.prop)) {
-          droppable.add(seen.get(decl.prop))
+        const key = `${decl.prop}:${decl.value}`
+
+        if (seen.has(key)) {
+          droppable.add(seen.get(key))
         }
 
-        seen.set(decl.prop, decl)
+        seen.set(key, decl)
       })
 
       for (let decl of droppable) {

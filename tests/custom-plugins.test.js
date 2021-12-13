@@ -1892,3 +1892,28 @@ test('animation values are joined when retrieved using the theme function', () =
     `)
   })
 })
+
+test.only('it can generate fallback properties', () => {
+  let config = {
+    content: [{ raw: html`<div class="prose"></div>` }],
+    corePlugins: [],
+    plugins: [
+      function ({ addComponents, }) {
+        addComponents({
+          '.prose': {
+            textAlign: [ '-webkit-match-parent', 'match-parent' ]
+          },
+        })
+      },
+    ],
+  }
+
+  return run('@tailwind components', config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      .prose {
+        text-align: -webkit-match-parent;
+        text-align: match-parent;
+      }
+    `)
+  })
+})

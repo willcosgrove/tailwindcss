@@ -300,3 +300,18 @@ test('it can parse an array of styles', () => {
     }
   `)
 })
+
+test.only('it can parse an array of fallback values', () => {
+  const result = parseObjectStyles({
+    '.prose': {
+      textAlign: [ '-webkit-match-parent', 'match-parent' ]
+    },
+  })
+
+  expect(css(result)).toMatchCss(`
+    .prose {
+      text-align: -webkit-match-parent;
+      text-align: match-parent;
+    }
+  `)
+})
