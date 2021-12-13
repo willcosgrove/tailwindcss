@@ -614,10 +614,9 @@ export let corePlugins = {
   touchAction: ({ addBase, addUtilities }) => {
     addBase({
       '@defaults touch-action': {
-        '--tw-pan-x': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-pan-y': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-pinch-zoom': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
+        '--tw-pan-x': ' ',
+        '--tw-pan-y': ' ',
+        '--tw-pinch-zoom': ' ',
       },
     })
 
@@ -627,37 +626,37 @@ export let corePlugins = {
       '.touch-pan-x': {
         '@defaults touch-action': {},
         '--tw-pan-x': 'pan-x',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pan-left': {
         '@defaults touch-action': {},
         '--tw-pan-x': 'pan-left',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pan-right': {
         '@defaults touch-action': {},
         '--tw-pan-x': 'pan-right',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pan-y': {
         '@defaults touch-action': {},
         '--tw-pan-y': 'pan-y',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pan-up': {
         '@defaults touch-action': {},
         '--tw-pan-y': 'pan-up',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pan-down': {
         '@defaults touch-action': {},
         '--tw-pan-y': 'pan-down',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-pinch-zoom': {
         '@defaults touch-action': {},
         '--tw-pinch-zoom': 'pinch-zoom',
-        'touch-action': 'var(--tw-touch-action)',
+        'touch-action': 'var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom)',
       },
       '.touch-manipulation': { 'touch-action': 'manipulation' },
     })
@@ -1580,54 +1579,60 @@ export let corePlugins = {
   fontVariantNumeric: ({ addUtilities }) => {
     addUtilities({
       '@defaults font-variant-numeric': {
-        '--tw-ordinal': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-slashed-zero': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-numeric-figure': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-numeric-spacing': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-numeric-fraction': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-font-variant-numeric':
-          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
+        '--tw-ordinal': ' ',
+        '--tw-slashed-zero': ' ',
+        '--tw-numeric-figure': ' ',
+        '--tw-numeric-spacing': ' ',
+        '--tw-numeric-fraction': ' ',
       },
       '.normal-nums': { 'font-variant-numeric': 'normal' },
       '.ordinal': {
         '@defaults font-variant-numeric': {},
         '--tw-ordinal': 'ordinal',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.slashed-zero': {
         '@defaults font-variant-numeric': {},
         '--tw-slashed-zero': 'slashed-zero',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.lining-nums': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-figure': 'lining-nums',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.oldstyle-nums': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-figure': 'oldstyle-nums',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.proportional-nums': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-spacing': 'proportional-nums',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.tabular-nums': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-spacing': 'tabular-nums',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.diagonal-fractions': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-fraction': 'diagonal-fractions',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
       '.stacked-fractions': {
         '@defaults font-variant-numeric': {},
         '--tw-numeric-fraction': 'stacked-fractions',
-        'font-variant-numeric': 'var(--tw-font-variant-numeric)',
+        'font-variant-numeric':
+          'var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)',
       },
     })
   },
@@ -1918,7 +1923,7 @@ export let corePlugins = {
 
     addBase({
       '@defaults ring-width': {
-        '--tw-ring-inset': 'var(--tw-empty,/*!*/ /*!*/)',
+        '--tw-ring-inset': ' ',
         '--tw-ring-offset-width': theme('ringOffsetWidth.DEFAULT', '0px'),
         '--tw-ring-offset-color': theme('ringOffsetColor.DEFAULT', '#fff'),
         '--tw-ring-color': ringColorDefault,
@@ -2136,16 +2141,21 @@ export let corePlugins = {
   filter: ({ addBase, addUtilities }) => {
     addBase({
       '@defaults filter': {
-        '--tw-blur': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-brightness': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-contrast': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-grayscale': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-hue-rotate': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-invert': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-saturate': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-sepia': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-drop-shadow': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-filter': [
+        '--tw-blur': ' ',
+        '--tw-brightness': ' ',
+        '--tw-contrast': ' ',
+        '--tw-grayscale': ' ',
+        '--tw-hue-rotate': ' ',
+        '--tw-invert': ' ',
+        '--tw-saturate': ' ',
+        '--tw-sepia': ' ',
+        '--tw-drop-shadow': ' ',
+      },
+    })
+    addUtilities({
+      '.filter': {
+        '@defaults filter': {},
+        filter: [
           'var(--tw-blur)',
           'var(--tw-brightness)',
           'var(--tw-contrast)',
@@ -2157,9 +2167,6 @@ export let corePlugins = {
           'var(--tw-drop-shadow)',
         ].join(' '),
       },
-    })
-    addUtilities({
-      '.filter': { '@defaults filter': {}, filter: 'var(--tw-filter)' },
       '.filter-none': { filter: 'none' },
     })
   },
@@ -2302,16 +2309,21 @@ export let corePlugins = {
   backdropFilter: ({ addBase, addUtilities }) => {
     addBase({
       '@defaults backdrop-filter': {
-        '--tw-backdrop-blur': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-brightness': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-contrast': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-grayscale': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-hue-rotate': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-invert': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-opacity': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-saturate': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-sepia': 'var(--tw-empty,/*!*/ /*!*/)',
-        '--tw-backdrop-filter': [
+        '--tw-backdrop-blur': ' ',
+        '--tw-backdrop-brightness': ' ',
+        '--tw-backdrop-contrast': ' ',
+        '--tw-backdrop-grayscale': ' ',
+        '--tw-backdrop-hue-rotate': ' ',
+        '--tw-backdrop-invert': ' ',
+        '--tw-backdrop-opacity': ' ',
+        '--tw-backdrop-saturate': ' ',
+        '--tw-backdrop-sepia': ' ',
+      },
+    })
+    addUtilities({
+      '.backdrop-filter': {
+        '@defaults backdrop-filter': {},
+        'backdrop-filter': [
           'var(--tw-backdrop-blur)',
           'var(--tw-backdrop-brightness)',
           'var(--tw-backdrop-contrast)',
@@ -2322,12 +2334,6 @@ export let corePlugins = {
           'var(--tw-backdrop-saturate)',
           'var(--tw-backdrop-sepia)',
         ].join(' '),
-      },
-    })
-    addUtilities({
-      '.backdrop-filter': {
-        '@defaults backdrop-filter': {},
-        'backdrop-filter': 'var(--tw-backdrop-filter)',
       },
       '.backdrop-filter-none': { 'backdrop-filter': 'none' },
     })
