@@ -539,7 +539,12 @@ export let corePlugins = {
         '--tw-skew-y': '0',
         '--tw-scale-x': '1',
         '--tw-scale-y': '1',
-        '--tw-transform': [
+      },
+    })
+    addUtilities({
+      '.transform': {
+        '@defaults transform': {},
+        transform: [
           'translateX(var(--tw-translate-x))',
           'translateY(var(--tw-translate-y))',
           'rotate(var(--tw-rotate))',
@@ -549,11 +554,8 @@ export let corePlugins = {
           'scaleY(var(--tw-scale-y))',
         ].join(' '),
       },
-    })
-    addUtilities({
-      '.transform': { '@defaults transform': {}, transform: 'var(--tw-transform)' },
       '.transform-cpu': {
-        '--tw-transform': [
+        transform: [
           'translateX(var(--tw-translate-x))',
           'translateY(var(--tw-translate-y))',
           'rotate(var(--tw-rotate))',
@@ -564,7 +566,7 @@ export let corePlugins = {
         ].join(' '),
       },
       '.transform-gpu': {
-        '--tw-transform': [
+        transform: [
           'translate3d(var(--tw-translate-x), var(--tw-translate-y), 0)',
           'rotate(var(--tw-rotate))',
           'skewX(var(--tw-skew-x))',
