@@ -2353,7 +2353,9 @@ export let corePlugins = {
     { filterDefault: true }
   ),
   willChange: createUtilityPlugin('willChange', [['will-change', ['will-change']]]),
-  content: createUtilityPlugin('content', [
-    ['content', ['--tw-content', ['content', 'var(--tw-content)']]],
-  ]),
+  content: ({ matchUtilities, theme }) => {
+    return createUtilityPlugin('content', [
+      ['content', ['--tw-content', ['content', 'var(--tw-content)']]],
+    ])({ matchUtilities, theme })
+  },
 }
