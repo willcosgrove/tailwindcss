@@ -116,6 +116,9 @@
     var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate)
     var(--tw-backdrop-sepia);
 }
+.content-none {
+  --tw-content: "";
+}
 .container {
   width: 100%;
 }

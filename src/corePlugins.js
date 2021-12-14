@@ -2353,9 +2353,13 @@ export let corePlugins = {
     { filterDefault: true }
   ),
   willChange: createUtilityPlugin('willChange', [['will-change', ['will-change']]]),
-  content: ({ matchUtilities, theme }) => {
+  content: ({ addDefaults, matchUtilities, theme }) => {
+    addDefaults('content', {
+      '--tw-content': `''`,
+    })
+
     return createUtilityPlugin('content', [
-      ['content', ['--tw-content', ['content', 'var(--tw-content)']]],
+      ['content', [['@defaults content', {}], '--tw-content', ['content', 'var(--tw-content)']]],
     ])({ matchUtilities, theme })
   },
 }
