@@ -294,7 +294,7 @@ it('should support unescaped underscores in URLs', () => {
   })
 })
 
-it.only("invalid escapes in sources don't break generated css", () => {
+it("invalid escapes in sources don't break generated css", () => {
   let config = {
     content: [
       {
@@ -311,6 +311,35 @@ it.only("invalid escapes in sources don't break generated css", () => {
   return run('@tailwind utilities', config).then((result) => {
     return expect(result.css).toMatchFormattedCss(`
 
+    `)
+  })
+})
+
+// https://github.com/tailwindlabs/tailwindcss/issues/6418
+// This works:
+// ["text-sm", "text-[10px]", "lg:text-[14px]"]
+
+// This does not:
+// ["text-[10px]", "lg:text-[14px]"]
+
+fit("arbitrary values inside arrays work", () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          ["text-[10px]", "lg:text-[14px]"]
+        `
+      },
+    ],
+  }
+
+  return run('@tailwind utilities', config).then((result) => {
+    return expect(result.css).toMatchFormattedCss(css`
+      .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+      .text-\[10px\] { font-size: 10px; }
+      @media (min-width: 1024px) {
+        .lg\:text-\[14px\] { font-size: 14px; }
+      }
     `)
   })
 })
