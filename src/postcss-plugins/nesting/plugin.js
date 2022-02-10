@@ -1,4 +1,4 @@
-import postcss from 'postcss'
+import postcss from '../../postcss'
 import postcssNested from 'postcss-nested'
 
 export function nesting(opts = postcssNested) {

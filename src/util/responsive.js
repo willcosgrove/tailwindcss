@@ -1,4 +1,4 @@
-import postcss from 'postcss'
+import postcss from '../postcss'
 import cloneNodes from './cloneNodes'
 
 export default function responsive(rules) {

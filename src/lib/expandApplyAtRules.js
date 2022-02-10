@@ -1,4 +1,4 @@
-import postcss from 'postcss'
+import postcss from '../postcss'
 import parser from 'postcss-selector-parser'
 
 import { resolveMatches } from './generateRules'

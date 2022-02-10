@@ -1,6 +1,6 @@
 import fs from 'fs'
 import * as path from 'path'
-import postcss from 'postcss'
+import postcss from './postcss'
 import createUtilityPlugin from './util/createUtilityPlugin'
 import buildMediaQuery from './util/buildMediaQuery'
 import parseAnimationValue from './util/parseAnimationValue'

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import url from 'url'
-import postcss from 'postcss'
+import postcss from '../postcss'
 import dlv from 'dlv'
 import selectorParser from 'postcss-selector-parser'
 

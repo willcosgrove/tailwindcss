@@ -1,4 +1,4 @@
-import postcss from 'postcss'
+import postcss from '../postcss'
 
 export default function transformThemeValue(themeSection) {
   if (['fontSize', 'outline'].includes(themeSection)) {

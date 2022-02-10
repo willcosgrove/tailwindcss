@@ -1,4 +1,4 @@
-import postcss from 'postcss'
+import postcss from '../postcss'
 import selectorParser from 'postcss-selector-parser'
 import { flagEnabled } from '../featureFlags'
 
