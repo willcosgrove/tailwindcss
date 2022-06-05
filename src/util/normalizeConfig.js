@@ -1,4 +1,6 @@
 import log, { dim } from './log'
+import fastGlob from 'fast-glob'
+import normalizePath from 'normalize-path'
 
 export function normalizeConfig(config) {
   // Quick structure validation
@@ -258,5 +260,74 @@ export function normalizeConfig(config) {
     }
   }
 
+  if (config.content.files.length <= 0) {
+    console.time('Calculating resolve content paths')
+    config.content.files = resolveContentPaths()
+    console.timeEnd('Calculating resolve content paths')
+  }
+
   return config
+}
+
+// This might need to moved to another place so that we can re-use the resolveConfig in the browser
+// without using `path` and what not.
+function resolveContentPaths(root = process.cwd()) {
+  let { readFileSync } = require('fs')
+  let { relative, dirname, join } = require('path')
+
+  // Known "hidden" files
+  let vendorFolders = ['node_modules', 'vendor']
+  let ignoreExtensions = ['.css', '.scss', '.sass', '.less', '.styl']
+
+  // Normalize the incoming path relative to the `root`
+  function normalize(filePath) {
+    let normalized = relative(root, normalizePath(filePath))
+    if (normalized.startsWith('../')) return filePath
+    return `./${normalized}`
+  }
+
+  let forceIncludedGlobs = new Set()
+
+  // Collect all `.tailwindignore` and `.gitignore` files
+  let ignoreFiles = Array.from(
+    new Set(
+      fastGlob
+        .sync('**/.{tailwindignore,gitignore}', {
+          cwd: root,
+          absolute: true,
+          markDirectories: true,
+        })
+        .flatMap((file) => {
+          let base = dirname(file)
+          let globs = readFileSync(file, 'utf8')
+            .split('\n')
+            .filter((x) => x.trim())
+
+          for (let glob of globs) {
+            if (glob.startsWith('!')) {
+              forceIncludedGlobs.add(normalize(join(base, glob.slice(1))))
+            }
+          }
+
+          return fastGlob
+            .sync(globs, { cwd: base, absolute: true, markDirectories: true })
+            .map((file) => normalize(file))
+        })
+    )
+  )
+
+  let content = fastGlob
+    .sync('**/*', {
+      ignore: [...vendorFolders, ...ignoreFiles, ...ignoreExtensions.map((ext) => `**/*${ext}`)],
+      cwd: root,
+    })
+    .concat(
+      fastGlob.sync(Array.from(forceIncludedGlobs), {
+        cwd: root,
+        markDirectories: true,
+      })
+    )
+    .map(normalize)
+
+  return content
 }
