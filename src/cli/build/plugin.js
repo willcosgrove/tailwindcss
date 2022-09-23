@@ -205,6 +205,7 @@ let state = {
 
     env.DEBUG && console.time('Searching for config')
     let configPath = findAtConfigPath(root, result) ?? cliConfigPath
+    this.watcher?.watch(configPath)
     env.DEBUG && console.timeEnd('Searching for config')
 
     env.DEBUG && console.time('Loading config')
@@ -362,11 +363,13 @@ export async function createProcessor(args, cliConfigPath) {
             }
           }
 
-          return build()
+          return build().catch((err) => console.error(err))
         },
       })
 
-      await build()
+      state.watcher?.watch(Array.from(state.contextDependencies))
+
+      await build().catch((err) => console.error(err))
     },
   }
 }

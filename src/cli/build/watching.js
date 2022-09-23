@@ -14,6 +14,7 @@ import { readFileWithRetries } from './utils.js'
  * @param {{ state, rebuild(changedFiles: any[]): Promise<any> }} param1
  * @returns {{
  *   fswatcher: import('chokidar').FSWatcher,
+ *   watch(files: string | string[]): void,
  *   refreshWatchedFiles(): void,
  * }}
  */
@@ -124,6 +125,8 @@ export function createWatcher(args, { state, rebuild }) {
 
   return {
     fswatcher: watcher,
+
+    watch: (files) => watcher.add(files),
 
     refreshWatchedFiles() {
       watcher.add(Array.from(state.contextDependencies))
